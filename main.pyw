@@ -4,6 +4,11 @@ from tkinter.messagebox import *
 from datetime import datetime
 import webbrowser, json
 
+width = 804
+height = 600
+color = "#630611"
+
+
 class GUI(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
@@ -19,10 +24,10 @@ class GUI(Frame):
         frame2 = Frame(self)
         frame2.pack(fill = X, pady = 20)
 
-        frame3 = Frame(self, bg="#630611")
+        frame3 = Frame(self, bg = color)
         frame3.pack(fill = X, pady = 30)
 
-        Label(frame1, text = "Ders Takvimi", font = "ComicSans 16", bg = "#3b5998", fg = "white").pack(fill = X)
+        Label(frame1, text = "Ders Takvimi", font = "ComicSans 16", bg = "#015578", fg = "white").pack(fill = X)
 
         tree = Treeview(frame2)
         tree['show'] = "headings"
@@ -50,7 +55,6 @@ class GUI(Frame):
         tree.insert("", "end", text = "", values = ("Çarşamba", "Türkçe", "İngilizce", "Türkçe", "Kuran", "Matematik"))
         tree.insert("", "end", text = "", values = ("Perşembe", "Türkçe", "Görsel Sanatlar", "İngilizce", "Matematik", "Matematik"))
         tree.insert("", "end", text = "", values = ("Cuma", "Hayat Bilgisi", "Kuran", "İngilizce", "Matematik", "Hayat Bilgisi"))
-        tree.bind("<ButtonRelease-1>", lambda event: tree.selection_clear())
 
         Label(frame3, text = "\n\n\t14.00 - 14.30 -> 1.Ders\t\n\n"
                              "\t14.40 - 15.10 -> 2.Ders\t\n\n"
@@ -129,12 +133,6 @@ class GUI(Frame):
             else:
                 return -1
 
-    def focusOut(self):
-        entry = Entry()
-        entry.pack()
-        entry.focus()
-        entry.destroy()
-
 
 if __name__ == '__main__':
     root = Tk()
@@ -142,9 +140,7 @@ if __name__ == '__main__':
     root.title("Ders Takvimi")
     screenWidth = root.winfo_screenwidth()
     screenHeight = root.winfo_screenheight()
-    width = 804
-    height = 600
     root.geometry(f"{width}x{height}+{ int(screenWidth/2 - width/2) }+{ int(screenHeight/2 - height/2) - 30 }")
     root.iconphoto(True, PhotoImage(file = "images/icon.png"))
-    app.config(bg="#630611")
+    app.config(bg = color)
     root.mainloop()
