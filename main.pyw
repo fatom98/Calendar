@@ -19,7 +19,7 @@ class GUI(Frame):
         frame2 = Frame(self)
         frame2.pack(fill = X, pady = 20)
 
-        frame3 = Frame(self)
+        frame3 = Frame(self, bg="#630611")
         frame3.pack(fill = X, pady = 30)
 
         Label(frame1, text = "Ders Takvimi", font = "ComicSans 16", bg = "#3b5998", fg = "white").pack(fill = X)
@@ -27,6 +27,7 @@ class GUI(Frame):
         tree = Treeview(frame2)
         tree['show'] = "headings"
         tree["columns"] = ("week", "one" , "two", "three", "four", "five")
+        tree.pack()
 
         treeWidth = 134
 
@@ -44,16 +45,24 @@ class GUI(Frame):
         tree.heading("four", text = "4.Ders")
         tree.heading("five", text = "5.Ders")
 
-        tree.pack()
-
         tree.insert("", "end", text = "", values = ("Pazartesi", "Türkçe", "Matematik", "İngilizce", "Türkçe", "İngilizce"))
         tree.insert("", "end", text = "", values = ("Salı", "Türkçe", "Müzik", "Beden Eğitimi", "Türkçe", "İngilizce"))
         tree.insert("", "end", text = "", values = ("Çarşamba", "Türkçe", "İngilizce", "Türkçe", "Kuran", "Matematik"))
         tree.insert("", "end", text = "", values = ("Perşembe", "Türkçe", "Görsel Sanatlar", "İngilizce", "Matematik", "Matematik"))
         tree.insert("", "end", text = "", values = ("Cuma", "Hayat Bilgisi", "Kuran", "İngilizce", "Matematik", "Hayat Bilgisi"))
+        tree.bind("<ButtonRelease-1>", lambda event: tree.selection_clear())
+
+        Label(frame3, text = "\n\n\t14.00 - 14.30 -> 1.Ders\t\n\n"
+                             "\t14.40 - 15.10 -> 2.Ders\t\n\n"
+                             "\t15.20 - 15.50 -> 3.Ders\t\n\n"
+                             "\t16.00 - 16.30 -> 4.Ders\t\n\n"
+                             "\t16.40 - 17.10 -> 5.Ders\t\n\n", borderwidth = 3, relief = "groove").grid(row = 0, column = 0)
 
         lecture = Button(frame3, text = "Derse Gir", command = self.which, height = 3, width = 15)
-        lecture.pack()
+        lecture.grid(row = 0, column = 1)
+
+        Grid.columnconfigure(frame3, 0, weight = 1)
+        Grid.columnconfigure(frame3, 1, weight = 1)
 
     def which(self):
         day = datetime.now().strftime("%A")
@@ -120,7 +129,11 @@ class GUI(Frame):
             else:
                 return -1
 
-
+    def focusOut(self):
+        entry = Entry()
+        entry.pack()
+        entry.focus()
+        entry.destroy()
 
 
 if __name__ == '__main__':
@@ -133,4 +146,5 @@ if __name__ == '__main__':
     height = 600
     root.geometry(f"{width}x{height}+{ int(screenWidth/2 - width/2) }+{ int(screenHeight/2 - height/2) - 30 }")
     root.iconphoto(True, PhotoImage(file = "images/icon.png"))
+    app.config(bg="#630611")
     root.mainloop()
