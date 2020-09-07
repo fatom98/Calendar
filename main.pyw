@@ -54,7 +54,7 @@ class GUI(Frame):
         tree.insert("", "end", text = "", values = ("Salı", "İngilizce", "Kuran", "Türkçe", "Matematik", "Türkçe"))
         tree.insert("", "end", text = "", values = ("Çarşamba", "Beden Eğitimi", "İngilizce", "Hayat Bilgisi", "Fen ve Teknoloji", "Matematik"))
         tree.insert("", "end", text = "", values = ("Perşembe", "Matematik", "Türkçe", "Müzik", "İngilizce", "İngilizce"))
-        tree.insert("", "end", text = "", values = ("Cuma", "Kuran", "Matematik", "Fen", "Türkçe", "İngilizce"))
+        tree.insert("", "end", text = "", values = ("Cuma", "Kuran", "Matematik", "Fen ve Teknoloji", "Türkçe", "İngilizce"))
 
         Label(frame3, text = "\n\n\t14.00 - 14.30 -> 1.Ders\t\n\n"
                              "\t14.40 - 15.10 -> 2.Ders\t\n\n"
@@ -79,7 +79,7 @@ class GUI(Frame):
         if day not in calendar:
             showerror("Hata","Bugün ders yok")
 
-        elif int(hour) < 13 or int(hour) > 17:
+        elif int(hour) < 9 or int(hour) > 14:
             showerror("Hata", "Ders saati değil")
 
         else:
@@ -95,43 +95,32 @@ class GUI(Frame):
 
     def number(self, hour: int, minute: int) -> int:
 
-        if hour is 13:
-            return 1
+        if hour is 9: return 1
 
-        elif hour is 14:
-            if 0 <= minute < 30:
-                return 1
+        elif hour is 10:
+            if minute < 5: return 1
 
-            elif minute >= 30:
-                return 2
+            elif 5 <= minute < 55: return 2
+
+            else: return 3
 
 
-        elif hour is 15:
+        elif hour is 11:
 
-            if 0 <= minute < 10:
-                return 2
+            if minute < 45: return 3
 
-            elif 10 <= minute < 50:
-                return 3
+            else: return 4
 
-            else:
-                return 4
+        elif hour is 12:
 
-        elif hour is 16:
+            if minute < 35: return 4
 
-            if 0 <= minute < 30:
-                return 4
-
-            elif 30 <= minute:
-                return 5
+            else: return 5
 
 
         else:
-            if 0 <= minute < 10:
-                return 5
-
-            else:
-                return -1
+            if minute < 25: return 5
+            else: return -1
 
 
 if __name__ == '__main__':
