@@ -21,7 +21,7 @@ class GUI(Frame):
         frame1 = Frame(self)
         frame1.pack(fill = X)
 
-        frame2 = Frame(self)
+        frame2 = Frame(self, bg = color)
         frame2.pack(fill = X, pady = 20)
 
         frame3 = Frame(self, bg = color)
