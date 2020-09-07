@@ -50,11 +50,11 @@ class GUI(Frame):
         tree.heading("four", text = "4.Ders")
         tree.heading("five", text = "5.Ders")
 
-        tree.insert("", "end", text = "", values = ("Pazartesi", "Türkçe", "Matematik", "İngilizce", "Türkçe", "İngilizce"))
-        tree.insert("", "end", text = "", values = ("Salı", "Türkçe", "Müzik", "Beden Eğitimi", "Türkçe", "İngilizce"))
-        tree.insert("", "end", text = "", values = ("Çarşamba", "Türkçe", "İngilizce", "Türkçe", "Kuran", "Matematik"))
-        tree.insert("", "end", text = "", values = ("Perşembe", "Türkçe", "Görsel Sanatlar", "İngilizce", "Matematik", "Matematik"))
-        tree.insert("", "end", text = "", values = ("Cuma", "Hayat Bilgisi", "Kuran", "İngilizce", "Matematik", "Hayat Bilgisi"))
+        tree.insert("", "end", text = "", values = ("Pazartesi", "İngilizce", "Görsel Sanatlar", "Türkçe", "Hayat Bilgisi", "Matematik"))
+        tree.insert("", "end", text = "", values = ("Salı", "İngilizce", "Kuran", "Türkçe", "Matematik", "Türkçe"))
+        tree.insert("", "end", text = "", values = ("Çarşamba", "Beden Eğitimi", "İngilizce", "Hayat Bilgisi", "Fen ve Teknoloji", "Matematik"))
+        tree.insert("", "end", text = "", values = ("Perşembe", "Matematik", "Türkçe", "Müzik", "İngilizce", "İngilizce"))
+        tree.insert("", "end", text = "", values = ("Cuma", "Kuran", "Matematik", "Fen", "Türkçe", "İngilizce"))
 
         Label(frame3, text = "\n\n\t14.00 - 14.30 -> 1.Ders\t\n\n"
                              "\t14.40 - 15.10 -> 2.Ders\t\n\n"
