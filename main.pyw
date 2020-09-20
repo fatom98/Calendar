@@ -2,15 +2,16 @@ from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter.messagebox import *
 from datetime import datetime
-from docs.db import common, eng, mus, pe, kuran, gor, life
-import webbrowser, json, time
+from docs.db import common, eng, mus, pe, kuran, gor, life, value, robot, skills
+import webbrowser, json
 
-width = 804
+width = 850
 height = 600
 color = "#630611"
 
 
 class GUI(Frame):
+
     def __init__(self, parent):
         Frame.__init__(self, parent)
         with open("docs/calendar.json", "r") as file:
@@ -29,14 +30,17 @@ class GUI(Frame):
         frame3 = Frame(self, bg=color)
         frame3.pack(fill=X, pady=30)
 
-        Label(frame1, text="Ders Takvimi", font="ComicSans 16", bg="#015578", fg="white").pack(fill=X)
+        label = Label(frame1, text="Ders Takvimi", font="ComicSans 16", bg="#015578", fg="white")
+        label.pack(fill=X)
+
+        self.bind("Button-1", lambda e: label.focus())
 
         tree = Treeview(frame2)
         tree['show'] = "headings"
-        tree["columns"] = ("week", "one", "two", "three", "four", "five")
+        tree["columns"] = ("week", "one", "two", "three", "four", "five", "six", "seven")
         tree.pack()
 
-        treeWidth = 134
+        treeWidth = 106
 
         tree.column("week", width=treeWidth, anchor=W)
         tree.column("one", width=treeWidth, anchor=W)
@@ -44,6 +48,8 @@ class GUI(Frame):
         tree.column("three", width=treeWidth, anchor=W)
         tree.column("four", width=treeWidth, anchor=W)
         tree.column("five", width=treeWidth, anchor=W)
+        tree.column("six", width=treeWidth, anchor=W)
+        tree.column("seven", width=treeWidth, anchor=W)
 
         tree.heading("week", text="")
         tree.heading("one", text="1.Ders")
@@ -51,21 +57,30 @@ class GUI(Frame):
         tree.heading("three", text="3.Ders")
         tree.heading("four", text="4.Ders")
         tree.heading("five", text="5.Ders")
+        tree.heading("six", text="6.Ders")
+        tree.heading("seven", text="7.Ders")
 
         tree.insert("", "end", text="",
-                    values=("Pazartesi", "İngilizce", "Görsel Sanatlar", "Türkçe", "Hayat Bilgisi", "Matematik"))
-        tree.insert("", "end", text="", values=("Salı", "İngilizce", "Kuran", "Türkçe", "Matematik", "Türkçe"))
+                    values=("Pazartesi", "İngilizce", "Hayat Bilgisi", "Türkçe", "Müzik", "Matematik",
+                            "Fen ve Teknoloji", "Değerler Eğitimi"))
+        tree.insert("", "end", text="", values=("Salı", "Türkçe", "Türkçe", "İngilizce", "Beden Eğitimi",
+                                                "Matematik", "İngilizce", "Fen ve Teknoloji"))
         tree.insert("", "end", text="",
-                    values=("Çarşamba", "Beden Eğitimi", "İngilizce", "Hayat Bilgisi", "Fen ve Teknoloji", "Matematik"))
-        tree.insert("", "end", text="", values=("Perşembe", "Matematik", "Türkçe", "Müzik", "İngilizce", "İngilizce"))
+                    values=("Çarşamba", "Türkçe", "Kuran", "İngilizce", "Matematik", "Fen ve Teknoloji", "Türkçe",
+                            "Robotik"))
+        tree.insert("", "end", text="", values=("Perşembe", "İngilizce", "Türkçe", "Hayat Bilgisi", "Kuran",
+                                                "Matematik", "Görsel Sanatlar", "Türkçe"))
         tree.insert("", "end", text="",
-                    values=("Cuma", "Kuran", "Matematik", "Fen ve Teknoloji", "Türkçe", "İngilizce"))
+                    values=("Cuma", "İngilizce", "Matematik", "Türkçe", "Skills", "Hayat Bilgisi", "Türkçe",
+                            "İngilizce"))
 
         Label(frame3, text="\n\n\t09.30 - 10.05 -> 1.Ders\t\n\n"
                            "\t10.20 - 10.55 -> 2.Ders\t\n\n"
-                           "\t11.10 - 11.45 -> 3.Ders\t\n\n"
-                           "\t12.00 - 12.35 -> 4.Ders\t\n\n"
-                           "\t12.50 - 13.25 -> 5.Ders\t\n\n", borderwidth=3, relief="groove").grid(row=0, column=0)
+                           "\t11.05 - 11.40 -> 3.Ders\t\n\n"
+                           "\t11.50 - 12.25 -> 4.Ders\t\n\n"
+                           "\t13.05 - 13.40 -> 5.Ders\t\n\n"
+                           "\t13.55 - 14.30 -> 6.Ders\t\n\n"
+                           "\t14.40 - 15.15 -> 7.Ders\t\n\n", borderwidth=3, relief="groove").grid(row=0, column=0)
 
         teachers = Button(frame3, text="Dersler", command=self.newWindow, height=3, width=15)
         teachers.grid(row=0, column=1)
@@ -80,7 +95,6 @@ class GUI(Frame):
     def which(self):
         try:
             self.nw.destroy()
-
         except AttributeError:
             pass
 
@@ -91,14 +105,14 @@ class GUI(Frame):
         if day not in self.calendar:
             showerror("Hata", "Bugün ders yok")
 
-        elif int(hour) < 9 or int(hour) > 14:
+        elif int(hour) < 9 or int(hour) > 15:
             showerror("Hata", "Ders saati değil")
 
         else:
             ders = self.number(int(hour), int(minute))
 
             if ders is -1:
-                showerror("Hata", "Ders saati değil")
+                showerror("Hata", "Dersler bitti. Geçmiş olsun ")
 
             else:
                 url = self.calendar.get(day).get(str(ders))
@@ -110,36 +124,40 @@ class GUI(Frame):
             return 1
 
         elif hour is 10:
-            if minute < 5:
-                return 1
-
-            elif 5 <= minute < 55:
+            if minute < 50:
                 return 2
-
             else:
                 return 3
 
-
         elif hour is 11:
-
-            if minute < 45:
+            if minute < 35:
                 return 3
-
             else:
                 return 4
 
         elif hour is 12:
-
-            if minute < 35:
+            if minute < 25:
                 return 4
 
             else:
+                showinfo("Tenefüs", "Şu anda öğlen tenefüsü. Ders 40dk sonra başlayacak")
                 return 5
 
+        elif hour is 13:
+            if minute < 35:
+                return 5
+            else:
+                return 6
+
+        elif hour is 14:
+            if minute < 25:
+                return 6
+            else:
+                return 7
 
         else:
-            if minute < 25:
-                return 5
+            if minute < 15:
+                return 7
             else:
                 return -1
 
@@ -147,7 +165,7 @@ class GUI(Frame):
         self.nw = Toplevel()
         self.nw.title("Ders Takvimi")
         self.nwWidth = 304
-        self.nwHeight = 400
+        self.nwHeight = 460
         self.nw.config(bg="#015578")
 
         self.nw.geometry(
@@ -185,15 +203,24 @@ class GUI(Frame):
         kur.grid(row=3, column=0, pady=10)
 
         resim = Button(self.nw, text="Görsel Sanatlar", width=buttonWidth, height=buttonHeight,
-                       command=lambda name="r": self.prof(name))
+                       command=lambda name="g": self.prof(name))
         resim.grid(row=3, column=1, pady=10)
 
         hayat = Button(self.nw, text="Hayat Bilgisi", width=buttonWidth, height=buttonHeight,
                        command=lambda name="h": self.prof(name))
         hayat.grid(row=4, column=0, pady=10)
 
-        now = Button(self.nw, text="Şimdiki Ders", width=buttonWidth, height=buttonHeight, command=self.which)
-        now.grid(row=4, column=1, pady=10)
+        deger = Button(self.nw, text="Değerler Eğitimi", width=buttonWidth, height=buttonHeight, command=lambda
+            name="d": self.prof(name))
+        deger.grid(row=4, column=1, pady=10)
+
+        rob = Button(self.nw, text="Robotik", width=buttonWidth, height=buttonHeight, command=lambda
+            name="r": self.prof(name))
+        rob.grid(row=5, column=0, pady=10)
+
+        skl = Button(self.nw, text="Skills", width=buttonWidth, height=buttonHeight, command=lambda
+            name="s": self.prof(name))
+        skl.grid(row=5, column=1, pady=10)
 
         Grid.columnconfigure(self.nw, 0, weight=1)
         Grid.columnconfigure(self.nw, 1, weight=1)
@@ -201,34 +228,30 @@ class GUI(Frame):
     def prof(self, name):
         self.nw.destroy()
 
-        link = None
-
         if name == "t":
             link = common
-
         elif name == "m":
             link = common
-
         elif name == "f":
             link = common
-
         elif name == "i":
             link = eng
-
         elif name == "mu":
             link = mus
-
         elif name == "b":
             link = pe
-
         elif name == "k":
             link = kuran
-
-        elif name == "r":
+        elif name == "g":
             link = gor
-
         elif name == "h":
             link = life
+        elif name == "d":
+            link = value
+        elif name == "r":
+            link = robot
+        else:
+            link = skills
 
         self.open(link)
 
