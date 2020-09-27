@@ -3,7 +3,8 @@ from tkinter.ttk import Treeview
 from tkinter.messagebox import *
 from datetime import datetime
 from docs.db import common, eng, mus, pe, kuran, gor, life, value, robot, skills
-import webbrowser, json
+import webbrowser
+import json
 
 width = 850
 height = 600
@@ -60,19 +61,11 @@ class GUI(Frame):
         tree.heading("six", text="6.Ders")
         tree.heading("seven", text="7.Ders")
 
-        tree.insert("", "end", text="",
-                    values=("Pazartesi", "İngilizce", "Hayat Bilgisi", "Türkçe", "Müzik", "Matematik",
-                            "Fen ve Teknoloji", "Değerler Eğitimi"))
-        tree.insert("", "end", text="", values=("Salı", "Türkçe", "Türkçe", "İngilizce", "Beden Eğitimi",
-                                                "Matematik", "İngilizce", "Fen ve Teknoloji"))
-        tree.insert("", "end", text="",
-                    values=("Çarşamba", "Türkçe", "Kuran", "İngilizce", "Matematik", "Fen ve Teknoloji", "Türkçe",
-                            "Robotik"))
-        tree.insert("", "end", text="", values=("Perşembe", "İngilizce", "Türkçe", "Hayat Bilgisi", "Kuran",
-                                                "Matematik", "Görsel Sanatlar", "Türkçe"))
-        tree.insert("", "end", text="",
-                    values=("Cuma", "İngilizce", "Matematik", "Türkçe", "Skills", "Hayat Bilgisi", "Türkçe",
-                            "İngilizce"))
+        tree.insert("", "end", text="", values=("Pazartesi", "İngilizce", "Hayat Bilgisi", "Türkçe", "Müzik", "Matematik", "Fen ve Teknoloji", "Değerler Eğitimi"))
+        tree.insert("", "end", text="", values=("Salı", "Türkçe", "Türkçe", "İngilizce", "Beden Eğitimi", "Matematik", "İngilizce", "Kuran"))
+        tree.insert("", "end", text="", values=("Çarşamba", "Türkçe", "İngilizce", "Robotik", "Türkçe", "Matematik", "Matematik", "Fen ve Teknoloji"))
+        tree.insert("", "end", text="", values=("Perşembe", "İngilizce", "Hayat Bilgisi", "Kuran", "Türkçe", "Matematik", "Görsel Sanatlar", "Türkçe"))
+        tree.insert("", "end", text="", values=("Cuma", "İngilizce", "Hayat Bilgisi", "Fen ve Teknoloji", "Skills", "Türkçe", "Türkçe", "İngilizce"))
 
         Label(frame3, text="\n\n\t09.30 - 10.05 -> 1.Ders\t\n\n"
                            "\t10.20 - 10.55 -> 2.Ders\t\n\n"
@@ -140,7 +133,8 @@ class GUI(Frame):
                 return 4
 
             else:
-                showinfo("Tenefüs", "Şu anda öğlen tenefüsü. Ders 40dk sonra başlayacak")
+                showinfo(
+                    "Tenefüs", "Şu anda öğlen tenefüsü. Ders 40dk sonra başlayacak")
                 return 5
 
         elif hour is 13:
@@ -168,58 +162,45 @@ class GUI(Frame):
         self.nwHeight = 460
         self.nw.config(bg="#015578")
 
-        self.nw.geometry(
-            f"{self.nwWidth}x{self.nwHeight}+{int(screenWidth / 2 - self.nwWidth / 2)}+{int(screenHeight / 2 - self.nwHeight / 2) - 30}")
+        self.nw.geometry(f"{self.nwWidth}x{self.nwHeight}+{int(screenWidth / 2 - self.nwWidth / 2)}+{int(screenHeight / 2 - self.nwHeight / 2) - 30}")
 
         buttonWidth = 15
         buttonHeight = 3
 
-        tur = Button(self.nw, text="Türkçe", width=buttonWidth, height=buttonHeight,
-                     command=lambda name="t": self.prof(name))
+        tur = Button(self.nw, text="Türkçe", width=buttonWidth, height=buttonHeight, command=lambda name="t": self.prof(name))
         tur.grid(row=0, column=0, pady=10)
 
-        mat = Button(self.nw, text="Matematik", width=buttonWidth, height=buttonHeight,
-                     command=lambda name="m": self.prof(name))
+        mat = Button(self.nw, text="Matematik", width=buttonWidth, height=buttonHeight, command=lambda name="m": self.prof(name))
         mat.grid(row=0, column=1, pady=10)
 
-        fen = Button(self.nw, text="Fen ve Teknoloji", width=buttonWidth, height=buttonHeight,
-                     command=lambda name="f": self.prof(name))
+        fen = Button(self.nw, text="Fen ve Teknoloji", width=buttonWidth, height=buttonHeight, command=lambda name="f": self.prof(name))
         fen.grid(row=1, column=0, pady=10)
 
-        ing = Button(self.nw, text="İngilizce", width=buttonWidth, height=buttonHeight,
-                     command=lambda name="i": self.prof(name))
+        ing = Button(self.nw, text="İngilizce", width=buttonWidth, height=buttonHeight, command=lambda name="i": self.prof(name))
         ing.grid(row=1, column=1, pady=10)
 
-        muzik = Button(self.nw, text="Müzik", width=buttonWidth, height=buttonHeight,
-                       command=lambda name="mu": self.prof(name))
+        muzik = Button(self.nw, text="Müzik", width=buttonWidth, height=buttonHeight, command=lambda name="mu": self.prof(name))
         muzik.grid(row=2, column=0, pady=10)
 
-        beden = Button(self.nw, text="Beden Eğitimi", width=buttonWidth, height=buttonHeight,
-                       command=lambda name="b": self.prof(name))
+        beden = Button(self.nw, text="Beden Eğitimi", width=buttonWidth, height=buttonHeight, command=lambda name="b": self.prof(name))
         beden.grid(row=2, column=1, pady=10)
 
-        kur = Button(self.nw, text="Kuran", width=buttonWidth, height=buttonHeight,
-                     command=lambda name="k": self.prof(name))
+        kur = Button(self.nw, text="Kuran", width=buttonWidth, height=buttonHeight, command=lambda name="k": self.prof(name))
         kur.grid(row=3, column=0, pady=10)
 
-        resim = Button(self.nw, text="Görsel Sanatlar", width=buttonWidth, height=buttonHeight,
-                       command=lambda name="g": self.prof(name))
+        resim = Button(self.nw, text="Görsel Sanatlar", width=buttonWidth, height=buttonHeight, command=lambda name="g": self.prof(name))
         resim.grid(row=3, column=1, pady=10)
 
-        hayat = Button(self.nw, text="Hayat Bilgisi", width=buttonWidth, height=buttonHeight,
-                       command=lambda name="h": self.prof(name))
+        hayat = Button(self.nw, text="Hayat Bilgisi", width=buttonWidth, height=buttonHeight, command=lambda name="h": self.prof(name))
         hayat.grid(row=4, column=0, pady=10)
 
-        deger = Button(self.nw, text="Değerler Eğitimi", width=buttonWidth, height=buttonHeight, command=lambda
-            name="d": self.prof(name))
+        deger = Button(self.nw, text="Değerler Eğitimi", width=buttonWidth, height=buttonHeight, command=lambda name="d": self.prof(name))
         deger.grid(row=4, column=1, pady=10)
 
-        rob = Button(self.nw, text="Robotik", width=buttonWidth, height=buttonHeight, command=lambda
-            name="r": self.prof(name))
+        rob = Button(self.nw, text="Robotik", width=buttonWidth, height=buttonHeight, command=lambda name="r": self.prof(name))
         rob.grid(row=5, column=0, pady=10)
 
-        skl = Button(self.nw, text="Skills", width=buttonWidth, height=buttonHeight, command=lambda
-            name="s": self.prof(name))
+        skl = Button(self.nw, text="Skills", width=buttonWidth, height=buttonHeight, command=lambda name="s": self.prof(name))
         skl.grid(row=5, column=1, pady=10)
 
         Grid.columnconfigure(self.nw, 0, weight=1)
@@ -256,8 +237,7 @@ class GUI(Frame):
         self.open(link)
 
     def open(self, url):
-        webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(
-            "C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
+        webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
         webbrowser.get('chrome').open(url)
 
 
