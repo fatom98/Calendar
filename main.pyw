@@ -2,13 +2,13 @@ from tkinter import *
 from tkinter.ttk import Treeview
 from tkinter.messagebox import *
 from datetime import datetime
-from docs.db import common, eng, mus, pe, kuran, gor, life, value, robot, skills
-import webbrowser
-import json
+from docs.db import common, eng, mus, pe, kuran, gor, life, value, robot, skills, programs
+import webbrowser, json
+
 
 width = 850
-height = 600
-color = "#630611"
+height = 650
+color = "#030519"
 
 
 class GUI(Frame):
@@ -22,8 +22,8 @@ class GUI(Frame):
     def initUI(self):
         self.pack(expand=True, fill=BOTH)
 
-        frame1 = Frame(self)
-        frame1.pack(fill=X)
+        frame1 = Frame(self, bg = color)
+        frame1.pack(fill=X, pady = 10)
 
         frame2 = Frame(self, bg=color)
         frame2.pack(fill=X, pady=20)
@@ -31,10 +31,7 @@ class GUI(Frame):
         frame3 = Frame(self, bg=color)
         frame3.pack(fill=X, pady=30)
 
-        label = Label(frame1, text="Ders Takvimi", font="ComicSans 16", bg="#015578", fg="white")
-        label.pack(fill=X)
-
-        self.bind("Button-1", lambda e: label.focus())
+        Label(frame1, text="Ders Takvimi", font="ComicSans 25", bg=color, fg="white").pack(fill=X)
 
         tree = Treeview(frame2)
         tree['show'] = "headings"
@@ -61,11 +58,11 @@ class GUI(Frame):
         tree.heading("six", text="6.Ders")
         tree.heading("seven", text="7.Ders")
 
-        tree.insert("", "end", text="", values=("Pazartesi", "İngilizce", "Hayat Bilgisi", "Türkçe", "Müzik", "Matematik", "Fen ve Teknoloji", "Değerler Eğitimi"))
-        tree.insert("", "end", text="", values=("Salı", "Türkçe", "Türkçe", "İngilizce", "Beden Eğitimi", "Matematik", "İngilizce", "Kuran"))
-        tree.insert("", "end", text="", values=("Çarşamba", "Türkçe", "İngilizce", "Robotik", "Türkçe", "Matematik", "Matematik", "Fen ve Teknoloji"))
-        tree.insert("", "end", text="", values=("Perşembe", "İngilizce", "Hayat Bilgisi", "Kuran", "Türkçe", "Matematik", "Görsel Sanatlar", "Türkçe"))
-        tree.insert("", "end", text="", values=("Cuma", "İngilizce", "Hayat Bilgisi", "Fen ve Teknoloji", "Skills", "Türkçe", "Türkçe", "İngilizce"))
+        tree.insert("", "end", text="", values=("Pazartesi", programs[0][0][1],  programs[0][1][1], programs[0][2][1], programs[0][3][1], programs[0][4][1], programs[0][5][1], programs[0][6][1]))
+        tree.insert("", "end", text="", values=("Salı",  programs[1][0][1], programs[1][1][1], programs[1][2][1], programs[1][3][1], programs[1][4][1], programs[1][5][1], programs[1][6][1]))
+        tree.insert("", "end", text="", values=("Çarşamba", programs[2][0][1], programs[2][1][1], programs[2][2][1], programs[2][3][1], programs[2][4][1], programs[2][5][1], programs[2][6][1]))
+        tree.insert("", "end", text="", values=("Perşembe", programs[3][0][1], programs[3][1][1], programs[3][2][1], programs[3][3][1], programs[3][4][1], programs[3][5][1], programs[3][6][1]))
+        tree.insert("", "end", text="", values=("Cuma", programs[4][0][1], programs[4][1][1], programs[4][2][1], programs[4][3][1], programs[4][4][1], programs[4][5][1], programs[4][6][1]))
 
         Label(frame3, text="\n\n\t09.30 - 10.05 -> 1.Ders\t\n\n"
                            "\t10.20 - 10.55 -> 2.Ders\t\n\n"
@@ -73,7 +70,8 @@ class GUI(Frame):
                            "\t11.50 - 12.25 -> 4.Ders\t\n\n"
                            "\t13.05 - 13.40 -> 5.Ders\t\n\n"
                            "\t13.55 - 14.30 -> 6.Ders\t\n\n"
-                           "\t14.40 - 15.15 -> 7.Ders\t\n\n", borderwidth=3, relief="groove").grid(row=0, column=0)
+                           "\t14.40 - 15.15 -> 7.Ders\t\n\n", 
+                           borderwidth=3, relief="groove").grid(row=0, column=0)
 
         teachers = Button(frame3, text="Dersler", command=self.newWindow, height=3, width=15)
         teachers.grid(row=0, column=1)
@@ -95,7 +93,7 @@ class GUI(Frame):
         hour = datetime.now().strftime("%H")
         minute = datetime.now().strftime("%M")
 
-        if day not in self.calendar:
+        if day not in self.calendar: 
             showerror("Hata", "Bugün ders yok")
 
         elif int(hour) < 9 or int(hour) > 15:
@@ -209,37 +207,24 @@ class GUI(Frame):
     def prof(self, name):
         self.nw.destroy()
 
-        if name == "t":
-            link = common
-        elif name == "m":
-            link = common
-        elif name == "f":
-            link = common
-        elif name == "i":
-            link = eng
-        elif name == "mu":
-            link = mus
-        elif name == "b":
-            link = pe
-        elif name == "k":
-            link = kuran
-        elif name == "g":
-            link = gor
-        elif name == "h":
-            link = life
-        elif name == "d":
-            link = value
-        elif name == "r":
-            link = robot
-        else:
-            link = skills
+        if name == "t": link = common
+        elif name == "m": link = common
+        elif name == "f": link = common
+        elif name == "i": link = eng
+        elif name == "mu": link = mus
+        elif name == "b": link = pe
+        elif name == "k": link = kuran
+        elif name == "g": link = gor
+        elif name == "h": link = life
+        elif name == "d": link = value
+        elif name == "r": link = robot
+        else: link = skills
 
         self.open(link)
 
     def open(self, url):
         webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
         webbrowser.get('chrome').open(url)
-
 
 if __name__ == '__main__':
     root = Tk()
