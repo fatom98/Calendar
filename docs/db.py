@@ -1,4 +1,5 @@
-import json, pprint
+import json
+import pprint
 
 
 tur = ("https://us04web.zoom.us/j/8391860248?pwd=UFQ3bmtodVZmMm1NN2wxOFcreWpwZz09", "Türkçe")
@@ -15,13 +16,12 @@ gor = ("https://us04web.zoom.us/j/3314303377", "Görsel Sanatlar")
 mus = ("https://us04web.zoom.us/j/4975962849", "Müzik")
 value = ("https://us04web.zoom.us/j/6868293773", "Değerler Eğitimi")
 
-
 programs = [
-    [eng, life, tur, mus, mat, fen, value],
-    [tur, tur, eng, pe, mat, eng, kuran],
-    [tur, eng, robot, tur, mat, mat, fen],
-    [eng, life, kuran, tur, mat, gor, tur],
-    [eng, life, fen, skills, tur, tur, eng]
+    [mat, fen, pe, eng, tur, kuran, tur],
+    [tur, eng, mat, skills, life, tur, kuran],
+    [mat, fen, life, mus, eng, tur, eng],
+    [tur, robot, tur, eng, value, gor, mat],
+    [fen, mat, tur, life, tur, eng, eng]
 ]
 
 
@@ -38,7 +38,7 @@ def dump():
 
     with open("docs/calendar.json", "w") as file:
 
-        json.dump(lectures, file, indent = 2)
+        json.dump(lectures, file, indent=2)
 
 
 def load():
@@ -50,7 +50,5 @@ def load():
     pprint.pprint(dic)
 
 
-#dump()
-#load()
-
-
+# dump()
+# load()

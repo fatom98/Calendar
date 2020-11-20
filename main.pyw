@@ -3,7 +3,8 @@ from tkinter.ttk import Treeview
 from tkinter.messagebox import *
 from datetime import datetime
 from docs.db import common, eng, mus, pe, kuran, gor, life, value, robot, skills, programs
-import webbrowser, json
+import webbrowser
+import json
 
 
 width = 850
@@ -22,8 +23,8 @@ class GUI(Frame):
     def initUI(self):
         self.pack(expand=True, fill=BOTH)
 
-        frame1 = Frame(self, bg = color)
-        frame1.pack(fill=X, pady = 10)
+        frame1 = Frame(self, bg=color)
+        frame1.pack(fill=X, pady=10)
 
         frame2 = Frame(self, bg=color)
         frame2.pack(fill=X, pady=20)
@@ -68,9 +69,9 @@ class GUI(Frame):
                            "\t10.20 - 10.55 -> 2.Ders\t\n\n"
                            "\t11.05 - 11.40 -> 3.Ders\t\n\n"
                            "\t11.50 - 12.25 -> 4.Ders\t\n\n"
-                           "\t13.05 - 13.40 -> 5.Ders\t\n\n"
-                           "\t13.55 - 14.30 -> 6.Ders\t\n\n"
-                           "\t14.40 - 15.15 -> 7.Ders\t\n\n", 
+                           "\t12.35 - 13.10 -> 5.Ders\t\n\n"
+                           "\t16.40 - 17.15 -> 6.Ders\t\n\n"
+                           "\t17.25 - 18.00 -> 7.Ders\t\n\n",
                            borderwidth=3, relief="groove").grid(row=0, column=0)
 
         teachers = Button(frame3, text="Dersler", command=self.newWindow, height=3, width=15)
@@ -93,65 +94,63 @@ class GUI(Frame):
         hour = datetime.now().strftime("%H")
         minute = datetime.now().strftime("%M")
 
-        if day not in self.calendar: 
+        if day not in self.calendar:
             showerror("Hata", "Bugün ders yok")
 
-        elif int(hour) < 9 or int(hour) > 15:
+        elif int(hour) < 9 or int(hour) > 17:
             showerror("Hata", "Ders saati değil")
 
         else:
             ders = self.number(int(hour), int(minute))
 
-            if ders is -1:
+            if ders == -1:
                 showerror("Hata", "Dersler bitti. Geçmiş olsun ")
 
+            elif ders == 0:
+                showinfo("Info", "Şimdi öğle tenefüsü vakti. Ders yok")
             else:
                 url = self.calendar.get(day).get(str(ders))
                 self.open(url)
 
     def number(self, hour: int, minute: int) -> int:
 
-        if hour is 9:
+        if hour == 9:
             return 1
 
-        elif hour is 10:
+        elif hour == 10:
             if minute < 50:
                 return 2
             else:
                 return 3
 
-        elif hour is 11:
+        elif hour == 11:
             if minute < 35:
                 return 3
             else:
                 return 4
 
-        elif hour is 12:
-            if minute < 25:
+        elif hour == 12:
+            if minute < 20:
                 return 4
 
             else:
-                showinfo(
-                    "Tenefüs", "Şu anda öğlen tenefüsü. Ders 40dk sonra başlayacak")
                 return 5
 
-        elif hour is 13:
-            if minute < 35:
-                return 5
+        elif hour == 13 or hour == 14 or hour == 15:
+            return 0
+
+        elif hour == 16:
+            if minute < 30:
+                return 0
+
             else:
                 return 6
 
-        elif hour is 14:
-            if minute < 25:
+        elif hour == 17:
+            if minute < 10:
                 return 6
             else:
                 return 7
-
-        else:
-            if minute < 15:
-                return 7
-            else:
-                return -1
 
     def newWindow(self):
         self.nw = Toplevel()
@@ -207,24 +206,37 @@ class GUI(Frame):
     def prof(self, name):
         self.nw.destroy()
 
-        if name == "t": link = common
-        elif name == "m": link = common
-        elif name == "f": link = common
-        elif name == "i": link = eng
-        elif name == "mu": link = mus
-        elif name == "b": link = pe
-        elif name == "k": link = kuran
-        elif name == "g": link = gor
-        elif name == "h": link = life
-        elif name == "d": link = value
-        elif name == "r": link = robot
-        else: link = skills
+        if name == "t":
+            link = common
+        elif name == "m":
+            link = common
+        elif name == "f":
+            link = common
+        elif name == "i":
+            link = eng
+        elif name == "mu":
+            link = mus
+        elif name == "b":
+            link = pe
+        elif name == "k":
+            link = kuran
+        elif name == "g":
+            link = gor
+        elif name == "h":
+            link = life
+        elif name == "d":
+            link = value
+        elif name == "r":
+            link = robot
+        else:
+            link = skills
 
         self.open(link)
 
     def open(self, url):
         webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
         webbrowser.get('chrome').open(url)
+
 
 if __name__ == '__main__':
     root = Tk()
