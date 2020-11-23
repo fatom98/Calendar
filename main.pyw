@@ -231,11 +231,12 @@ class GUI(Frame):
         else:
             link = skills
 
-        self.open(link)
+        self.open(link[0])
 
     def open(self, url):
         webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-        webbrowser.get('chrome').open(url[0])
+        print(url)
+        webbrowser.get('chrome').open(url)
 
 
 if __name__ == '__main__':
