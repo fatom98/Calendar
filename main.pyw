@@ -235,7 +235,7 @@ class GUI(Frame):
 
     def open(self, url):
         webbrowser.register('chrome', None, webbrowser.BackgroundBrowser("C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
-        webbrowser.get('chrome').open(url)
+        webbrowser.get('chrome').open(url[0])
 
 
 if __name__ == '__main__':
