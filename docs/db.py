@@ -7,7 +7,7 @@ fen = ("https://us04web.zoom.us/j/8391860248?pwd=UFQ3bmtodVZmMm1NN2wxOFcreWpwZz0
 mat = ("https://us04web.zoom.us/j/8391860248?pwd=UFQ3bmtodVZmMm1NN2wxOFcreWpwZz09", "Matematik")
 common = ("https://us04web.zoom.us/j/8391860248?pwd=UFQ3bmtodVZmMm1NN2wxOFcreWpwZz09", "")
 eng = ("https://us04web.zoom.us/j/9018960986?pwd=Qzk1Sm9kMmxId0NyNnVlR0hSbnRJdz09", "İngilizce")
-pe = ("https://us04web.zoom.us/j/3452723043?pwd=bE03cktJOHZ2Lzg2Tmt0amREVGpEdz09", "Beden Eğitimi")
+pe = ("https://us04web.zoom.us/j/4324908469", "Beden Eğitimi")
 life = ("https://us04web.zoom.us/j/8391860248?pwd=UFQ3bmtodVZmMm1NN2wxOFcreWpwZz09", "Hayat Bilgisi")
 robot = ("https://us04web.zoom.us/j/5609504756?pwd=MVMzTU8xaTlBV1U3Yjd1RzRVVHRPdz09", "Robotik Kodlama")
 skills = ("https://us04web.zoom.us/j/2937880883?pwd=MTVLTTdESTUvbzNIUHdmUVNDT3N3QT09", "Skills")
@@ -50,5 +50,5 @@ def load():
     pprint.pprint(dic)
 
 
-# dump()
+dump()
 # load()
